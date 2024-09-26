@@ -20,7 +20,7 @@ const App = () => {
   return (
     <div>
       <header className="navbar">
-        <div className="logo">YOUR LOGO</div>
+        <div className="logo">YOUR LOGO tesing landingPage branch</div>
         <nav className="nav-links">
           <button className="nav-button" onClick={handleLoginClick}>
             Log In
