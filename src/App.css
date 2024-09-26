@@ -1,38 +1,46 @@
-.App {
-  text-align: center;
-}
+/* App.css */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Navbar container */
+.navbar {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 10px 30px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
 }
 
-.App-link {
-  color: #61dafb;
+/* Placeholder for the logo */
+.logo {
+  font-size: 20px;
+  font-weight: bold;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Container for the nav links */
+.nav-links {
+  display: flex;
+  gap: 20px; /* Space between the buttons */
+}
+
+/* Styling for the nav buttons */
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.nav-button:hover {
+  text-decoration: underline;
+}
+
+.signup-button {
+  font-weight: bold;
+  color: #007bff;
+}
+
+.signup-button:hover {
+  text-decoration: underline;
 }
