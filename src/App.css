@@ -44,3 +44,7 @@
 .signup-button:hover {
   text-decoration: underline;
 }
+
+body {
+  background-color: aliceblue;
+}
