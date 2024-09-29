@@ -20,8 +20,24 @@ function App() {
   ]);
 
   return (
-    <div className="App">
-      <RouterProvider router={route}></RouterProvider>
+    <div>
+      <header className="navbar">
+        <div className="logo">YOUR LOGO</div>
+        <nav className="nav-links">
+          <button className="nav-button" onClick={handleLoginClick}>
+            Log In
+          </button>
+          <button className="nav-button signup-button" onClick={handleSignUpClick}>
+            Sign Up
+          </button>
+        </nav>
+      </header>
+
+      {/* Render forms based on the button clicks */}
+      <div className="form-container">
+        {showSignUp && <SignUpForm />}
+        {showLogin && <LoginForm />}
+      </div>
     </div>
   );
 }
