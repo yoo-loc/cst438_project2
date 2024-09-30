@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Mock Up
+## Mock Up [Link](https://www.figma.com/design/c8RNQnISFVBa8tCPAntJKw/Mock-Up?node-id=0-1&t=98wRD35ItKSzb2Ur-1)
 
 ### Sign Up
 ![Imgur Image](https://i.imgur.com/VLclpVK_d.webp?maxwidth=760&fidelity=grand)
@@ -15,7 +15,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### Wishlist
 ![Imgur Image](https://i.imgur.com/sfO0Hrd_d.webp?maxwidth=760&fidelity=grand)
 
-## Entity Relationship Diagram
+## Entity Relationship Diagram [Link](https://www.figma.com/board/AYrjN5DgGPmliZjl76yyT1/ERD?node-id=0-1&t=vThQ86tCUnt24WzE-1)
 
 ![Imgur Image](https://i.imgur.com/f6ZGAuU_d.webp?maxwidth=760&fidelity=grand)
 
