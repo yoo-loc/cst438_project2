@@ -7,41 +7,14 @@ import GiftIdeas from "./components/GiftIdeas";
 import  { BrowserRouter as Router, Route, Switch, Link, Routes} from "react-router-dom";
 
 const App = () => {
-  // const [showSignUp, setShowSignUp] = useState(false);
-  // const [showLogin, setShowLogin] = useState(false);
-
-  // const handleSignUpClick = () => {
-  //   setShowSignUp(true);
-  //   setShowLogin(false); // Ensure only one form shows at a time
-  // };
-  // const handlewishlistClick = () => {
-  //   // Navigate to the wishlist page if logged in, otherwise show the login form
-  //   if (isLoggedIn) {
-  //     <a href="./WishlistHome"></a>
-  //   } else {
-  //     setShowLogin(true);
-  //     setShowSignUp(false);
-  //   }
-  // };
-  // const handleGiftIdeasClick = () => {
-  //   // Page should display randomly generated gift ideas from the database
-  //   <a href="./GiftIdeas"></a>
-  //     setShowLogin(true);
-  //     setShowSignUp(false);
-  //   }
-  // const handleLoginClick = () => {
-  //   setShowLogin(true);
-  //   setShowSignUp(false); // Ensure only one form shows at a time
-  // };
-
   return (
     <Router>
-      <div>
-        <nav>
-          <Link to="/WishlistHome">Wishlist</Link>
-          <Link to="/GiftIdeas">Gift Ideas</Link>
-          <Link to="/LoginForm">Log In</Link>
-          <Link to="/SignUpForm">Sign up</Link>
+      <div className="app-container">
+        <nav className="navbar">
+          <Link className="nav-link" to="/WishlistHome">Wishlist</Link>
+          <Link className="nav-link" to="/GiftIdeas">Gift Ideas</Link>
+          <Link className="nav-link" to="/LoginForm">Log In</Link>
+          <Link className="nav-link" to="/SignUpForm">Sign up</Link>
         </nav>
 
         <Routes>
