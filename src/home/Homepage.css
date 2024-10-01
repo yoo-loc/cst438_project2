@@ -1,0 +1,21 @@
+.homePage {
+    position: relative;
+    padding: 20px;
+    height: 100vh; /* Optional to ensure full height of viewport */
+  }
+  
+  .logout-btn {
+    float: right;
+    margin-top: -50px; /* Adjust depending on where you want the button */
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .logout-btn:hover {
+    background-color: #0056b3;
+  }
+  

@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
 import './App.css'; // Import the CSS
-import SignUpForm from './components/SignUpForm'; // Ensure these are imported
-import LoginForm from './components/LoginForm';
+import Signup from "./signup/Signup";
+import Login from "./login/Login";
+import HomePage from "./home/Homepage";  // Correct path
+// import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import WishlistHome from "./components/WishlistHome";
 import GiftIdeas from "./components/GiftIdeas";
 import csumbLogo from './images/csumb_logo.png';
-import  { BrowserRouter as Router, Route, Switch, Link, Routes} from "react-router-dom";
+import  { BrowserRouter as Router, Route, Link, Routes} from "react-router-dom";
 
 const App = () => {
   return (
@@ -30,8 +31,8 @@ const App = () => {
         <Routes>
           <Route path="/WishlistHome" element={<WishlistHome />} />
           <Route path="/GiftIdeas" element={<GiftIdeas />} />
-          <Route path="/LoginForm" element={<LoginForm />} />
-          <Route path="/SignUpForm" element={<SignUpForm />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Signup" element={<Signup />} />
         </Routes>
       </div>
       <footer>
@@ -43,6 +44,6 @@ const App = () => {
       </footer>
     </Router>
   );
-};
+}
 
 export default App;
