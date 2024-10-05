@@ -38,7 +38,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data));
 
         // Redirect to homepage or any protected route
-        navigate("/home");
+        navigate("/Homepage");
       } else {
         setErrorMessage("Invalid credentials. Please try again.");
       }
