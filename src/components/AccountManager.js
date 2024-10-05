@@ -1,9 +1,10 @@
 import React from 'react';
-
-const WishlistHome = () => {
+//This file could be used to manage all user's accounts through admin privelages.
+//This is a placeholder for now until backend is setup.
+const AccountManager = () => {
     return (
         <div>
-            <h1>Welcome to Your Wishlist</h1>
+            <h1></h1>
             <p>This is where you can manage your wishlist items.</p>
             <ul>
                 <li>Item 1</li>
@@ -14,4 +15,4 @@ const WishlistHome = () => {
     );
 };
 
-export default WishlistHome;
+export default AccountManager;

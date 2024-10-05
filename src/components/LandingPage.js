@@ -6,7 +6,7 @@ const LandingPage = () => {
     return (
         <div className="app-instructions">
           <h1>Welcome to THE Wishlist</h1>
-          <h1>Convenient. Simple. *insert third adjective* </h1>
+          <h2>Convenient. Simple. *insert third adjective* </h2>
           <h3>If you no longer want to deal with paper lists, then there are plenty of other options. Why not another? Why not ours?</h3>
           <p>Here you can create a wishlist and share it with your friends and family.Like any wishlist should.</p>
           <p>Need some gift ideas? We got you covered. Check out our <Link to="/GiftIdeas">Gift Ideas</Link> page.</p>

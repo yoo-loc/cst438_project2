@@ -14,6 +14,15 @@
   justify-content: center;
   flex: 1;
 }
+.logout-button {
+  font-weight: bold;
+  color: #007bff;
+  background-color: #d0ccdf;
+  border-color:#007bff;
+  width: auto;
+  height: 50px;
+  font-size: 20px;
+}
 /* Placeholder for the logo */
 .logo {
   font-size: 20px;
