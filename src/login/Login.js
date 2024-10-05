@@ -50,7 +50,7 @@ const Login = () => {
 
   return (
     <div className="addUser">
-      <h3>Sign in</h3>
+      <h3>Login</h3>
       <form className="addUserForm" onSubmit={handleSubmit}>
         <div className="inputGroup">
           <label htmlFor="username">Username:</label>
