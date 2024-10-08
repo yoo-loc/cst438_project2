@@ -1,4 +1,4 @@
-import react from 'react';
+//import react from 'react';
 import  {Link} from "react-router-dom";
 const LandingPage = () => {
   // The links to the signup and login pages should send an alert to user they're already logged in and redirect them to the WishlistHome page.

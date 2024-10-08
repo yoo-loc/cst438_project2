@@ -5,7 +5,7 @@ const WishlistHome = () => {
 
   useEffect(() => {
     // Fetch items for the specific user or list
-    fetch('http://localhost:8080/items?user=user123&list=1')  // Adjust as needed
+    fetch('http://localhost:8080/items?user=user456&list=1')  // Adjust as needed
       .then(response => response.json())
       .then(data => {
         setItems(data);  // Set the fetched items in state
@@ -16,23 +16,22 @@ const WishlistHome = () => {
   }, []);
 
   const handleDelete = (itemId) => {
-    // Call the delete endpoint for the specific item
     fetch(`http://localhost:8080/items/${itemId}`, {
-      method: 'DELETE',
+        method: 'DELETE',
     })
     .then(response => {
-      if (response.ok) {
-        // Remove the deleted item from the state
-        setItems(items.filter(item => item.id !== itemId));
-        console.log('Item deleted successfully');
-      } else {
-        console.error('Failed to delete item');
-      }
+        if (response.ok) {
+            // Remove the deleted item from the state
+            setItems(items.filter(item => item.id !== itemId));
+            console.log('Item deleted successfully');
+        } else {
+            console.error('Failed to delete item');
+        }
     })
     .catch(error => {
-      console.error('Error during item deletion:', error);
+        console.error('Error during item deletion:', error);
     });
-  };
+};
 
   return (
     <div>

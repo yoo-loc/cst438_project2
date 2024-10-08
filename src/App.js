@@ -27,6 +27,7 @@ const App = () => {
           {/* Wishlist link should take you to login if not already logged in. Should come back to when backend setup. */}
           <Link className="nav-link" to="/WishlistHome">Wishlists</Link>
           <Link className="nav-link" to="/GiftIdeas">Gift Ideas</Link>
+
           <Link className="nav-link" to="/Login">Log In</Link>
           <Link className="nav-link" to="/Signup">Sign up</Link>
         </nav>
