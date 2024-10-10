@@ -16,6 +16,7 @@ const GiftIdeas = () => {
         {title: 'Clothing',image: clothingImage,},
         {title: 'Gift Cards',image: giftCardImage,},
         {title: 'Handmade Crafts',image: craftImage,},  
+        
     ];
 
     return (
