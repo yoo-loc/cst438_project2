@@ -49,6 +49,8 @@ const App = () => {
           <Route path="/Signup" element={<Signup />} />
         </Routes>
       </div>
+      <br></br>
+      <br></br>
       <footer>
         CST438 Software Engineering.2024© Elizarraraz, Roland, Guido, Tan.
         <div></div>
