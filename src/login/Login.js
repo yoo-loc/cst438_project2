@@ -38,7 +38,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data));
 
         // Redirect to homepage or any protected route
-        navigate("/home");
+        navigate("/Homepage");
       } else {
         setErrorMessage("Invalid credentials. Please try again.");
       }
@@ -50,7 +50,7 @@ const Login = () => {
 
   return (
     <div className="addUser">
-      <h3>Sign in</h3>
+      <h3>Login</h3>
       <form className="addUserForm" onSubmit={handleSubmit}>
         <div className="inputGroup">
           <label htmlFor="username">Username:</label>
