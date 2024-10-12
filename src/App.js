@@ -5,6 +5,7 @@ import HomePage from "./home/Homepage";  // Correct path
 import WishlistHome from "./components/WishlistHome";
 import GiftIdeas from "./components/GiftIdeas";
 import csumbLogo from './images/csumb_logo.png'
+
 import logo_img_placeholder from './images/logo_img_placeholder.png';
 import LandingPage from './components/LandingPage';
 import { BrowserRouter as Router, Route, Link, Routes, Navigate } from "react-router-dom";  // Make sure to import Navigate
@@ -27,7 +28,6 @@ const App = () => {
           {/* Wishlist link should take you to login if not already logged in. Should come back to when backend setup. */}
           <Link className="nav-link" to="/WishlistHome">Wishlists</Link>
           <Link className="nav-link" to="/GiftIdeas">Gift Ideas</Link>
-
           <Link className="nav-link" to="/Login">Log In</Link>
           <Link className="nav-link" to="/Signup">Sign up</Link>
         </nav>
