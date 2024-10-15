@@ -16,7 +16,10 @@ const HomePage = () => {
   const giftButton = () => {
     navigate('/GiftIdeas');
   };
-  
+  const handleGoToWishlist = () => {
+    navigate('/WishlistHome');  // Navigate to the Wishlist page
+  };
+
 
   return (
     <div className="homePage">
