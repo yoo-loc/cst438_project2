@@ -22,6 +22,11 @@ const WishlistHome = () => {
   const handleBackToHome = () => {
     navigate('/HomePage');  // Navigate back to Homepage
   };
+
+  const handleGiftAdd = () => {
+    navigate('/giftAdd');  // Navigate back to Homepage
+  };
+
   const handleDeleteItem = (itemId) => {
     fetch(`http://localhost:8080/items/${itemId}`, {
       method: 'DELETE'
@@ -64,6 +69,8 @@ const WishlistHome = () => {
         onChange={(e) => setSearchQuery(e.target.value)}  // Update searchQuery on input change
       />
       <button onClick={handleSearch}>Search</button>  {/* Trigger search */}
+
+      <button onClick={handleGiftAdd} className="btn btn-primary">Add an Item</button>
 
       {items.length > 0 ? (
         <ul>
