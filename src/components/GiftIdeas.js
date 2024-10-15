@@ -1,5 +1,6 @@
 import React from 'react';
-import './Giftideas.css'; // Assuming you'll add some styles here
+import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate from react-router-dom
+import './Giftideas.css';  // Assuming you'll add some styles here
 import bookImage from '../images/book.png';
 import gadgetsImage from '../images/gadgets.png';
 import clothingImage from '../images/clothing.png';
@@ -27,10 +28,14 @@ const GiftIdeas = () => {
                 <div className='giftIdeas'>
                 {ideas.map((idea, index) => (
                     <li key={index}>
-                    <Link to={idea.path}>
-                    <img src={idea.image} alt='' style={{ width: '150px', height: 'auto', margin: '5px' }} />
-                    <h3>{idea.title}</h3>
-                    </Link>
+                        
+                        <a href={idea.url} target="_blank" rel="noopener noreferrer">
+                        <img src={idea.image} alt={idea.title} style={{ width: '150px', height: 'auto', margin: '5px' }} />
+                        <h3>{idea.title}</h3>
+                        {/* Add a button to view the idea */}
+                    
+                        </a>
+    
                     </li>
                 ))}
                 </div>
