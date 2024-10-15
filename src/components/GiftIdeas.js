@@ -5,17 +5,18 @@ import gadgetsImage from '../images/gadgets.png';
 import clothingImage from '../images/clothing.png';
 import giftCardImage from '../images/giftcard.png';
 import craftImage from '../images/crafts.png';
+import { Link } from 'react-router-dom';
 
 
 
 
 const GiftIdeas = () => {
     const ideas = [
-        {title: 'Books',image: bookImage,},
-        {title: 'Gadgets',image: gadgetsImage,},
-        {title: 'Clothing',image: clothingImage,},
-        {title: 'Gift Cards',image: giftCardImage,},
-        {title: 'Handmade Crafts',image: craftImage,},  
+        {title: 'Books',image: bookImage,path: '/giftList'},
+        {title: 'Gadgets',image: gadgetsImage,path: '/giftList'},
+        {title: 'Clothing',image: clothingImage,path: '/giftList'},
+        {title: 'Gift Cards',image: giftCardImage,path: '/giftList'},
+        {title: 'Handmade Crafts',image: craftImage,path: '/giftList'},  
         
     ];
 
@@ -26,8 +27,10 @@ const GiftIdeas = () => {
                 <div className='giftIdeas'>
                 {ideas.map((idea, index) => (
                     <li key={index}>
+                    <Link to={idea.path}>
                     <img src={idea.image} alt='' style={{ width: '150px', height: 'auto', margin: '5px' }} />
                     <h3>{idea.title}</h3>
+                    </Link>
                     </li>
                 ))}
                 </div>
