@@ -22,7 +22,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
+      const response = await fetch("https://wishlistapi-b5777d959cf8.herokuapp.com/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -6,6 +6,7 @@ import gadgetsImage from '../images/gadgets.png';
 import clothingImage from '../images/clothing.png';
 import giftCardImage from '../images/giftcard.png';
 import craftImage from '../images/crafts.png';
+import videoGamesImage from '../images/video-games.png';
 
 const GiftIdeas = () => {
     const navigate = useNavigate();  // Initialize useNavigate
@@ -36,7 +37,23 @@ const GiftIdeas = () => {
             image: craftImage,
             url: 'https://www.pinterest.com/liberalsprinkles/diy-handmade-crafts/',  // Example URL for crafts
         },
+
+        {
+            title: 'Top Video Games (2023)',
+            image: videoGamesImage,  // Add image for video games
+            route: '/videogames',  // Route for video games category
+        }
+
     ];
+
+    // Function to handle adding a gift idea to the personal wishlist
+    const addToWishlist = (idea) => {
+        const personalWishlist = JSON.parse(localStorage.getItem('personalWishlist')) || [];
+        const updatedWishlist = [...personalWishlist, idea];  // Add the selected gift idea
+        localStorage.setItem('personalWishlist', JSON.stringify(updatedWishlist));
+        alert(`${idea.title} has been added to your personal wishlist!`);
+        navigate('/PersonalWishlist');  // Navigate to personal wishlist page
+    };
 
     const handleBack = () => {
         navigate(-1);  // This will navigate back to the previous page
@@ -59,6 +76,14 @@ const GiftIdeas = () => {
                                 View {idea.title}
                             </button>
                         </a>
+                        {/* Add a button to save the idea to wishlist */}
+                        <button 
+                            onClick={() => addToWishlist(idea)} 
+                            className="btn btn-success" 
+                            style={{ marginTop: '10px' }}>
+                            Add to Wishlist
+                        </button>
+                        
                     </li>
                 ))}
             </ul>
