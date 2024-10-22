@@ -10,9 +10,6 @@ const HomePage = () => {
     localStorage.removeItem('userToken');
     navigate('/login');
   };
-  const wishlistButton = () => {
-    navigate('/WishlistHome');
-  };
   const giftButton = () => {
     navigate('/GiftIdeas');
   };
@@ -27,9 +24,7 @@ const HomePage = () => {
       <p>This is your homepage after logging in.</p>
       <br></br>
 
-      <button onClick={wishlistButton} className="btn btn-primary logout-btn">
-        Wishlist
-      </button>
+    
       <button onClick={giftButton} className="btn btn-primary logout-btn">
         Gifts
       </button>
