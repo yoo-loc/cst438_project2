@@ -7,6 +7,7 @@ import GiftIdeas from "./components/GiftIdeas";
 import csumbLogo from './images/csumb_logo.png'
 import logo_img_placeholder from './images/logo_img_placeholder.png';
 import LandingPage from './components/LandingPage';
+import Books from './components/Books';
 import PersonalWishlist from './components/PersonalWishlist';  // Import PersonalWishlist
 
 import { BrowserRouter as Router, Route, Link, Routes, Navigate } from "react-router-dom";  // Make sure to import Navigate
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="/GiftIdeas" element={<GiftIdeas />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
+          <Route path="/books" element={<Books />} />
           
           {/* Add PersonalWishlist route */}
           <Route path="/PersonalWishlist" element={<ProtectedRoute><PersonalWishlist /></ProtectedRoute>} />
