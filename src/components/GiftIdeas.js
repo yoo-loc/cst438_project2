@@ -7,6 +7,7 @@ import gadgetsImage from '../images/gadgets.png';
 import clothingImage from '../images/clothing.png';
 import giftCardImage from '../images/giftcard.png';
 import craftImage from '../images/crafts.png';
+import videoGamesImage from '../images/video-games.png';
 
 const GiftIdeas = () => {
     const navigate = useNavigate();  // Initialize useNavigate

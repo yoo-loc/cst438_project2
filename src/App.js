@@ -2,7 +2,6 @@ import './App.css'; // Import the CSS
 import Signup from "./signup/Signup";
 import Login from "./login/Login";
 import HomePage from "./home/Homepage";  // Correct path
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import WishlistHome from "./components/WishlistHome";
 import GiftIdeas from "./components/GiftIdeas";
 import csumbLogo from './images/csumb_logo.png'
@@ -12,42 +11,17 @@ import PersonalWishlist from './components/PersonalWishlist';  // Import Persona
 
 import { BrowserRouter as Router, Route, Link, Routes, Navigate } from "react-router-dom";  // Make sure to import Navigate
 
-function App() {
-  const route = createBrowserRouter([
-    {
-      path: "/",
-      element: <Signup />,
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/home", // Route for the homepage
-      element: <HomePage />,
-    },
-  ]);
+// ProtectedRoute component to protect routes
+const ProtectedRoute = ({ children }) => {
+  const user = localStorage.getItem("user");  // Checking if user is stored in localStorage
+  if (!user) {
+    return <Navigate to="/Login" />;  // Redirect to Login if user is not authenticated
+  }
+  return children;
+};
 
+const App = () => {
   return (
-    <div>
-      <header className="navbar">
-        <div className="logo">YOUR LOGO</div>
-        <nav className="nav-links">
-          <button className="nav-button" onClick={handleLoginClick}>
-            Log In
-          </button>
-          <button className="nav-button signup-button" onClick={handleSignUpClick}>
-            Sign Up
-          </button>
-        </nav>
-      </header>
-
-      {/* Render forms based on the button clicks */}
-      <div className="form-container">
-        {showSignUp && <SignUpForm />}
-        {showLogin && <LoginForm />}
-      </div>
-    </div>
     <Router>
       <div className="app-container">
         <nav className="navbar">
@@ -92,6 +66,3 @@ function App() {
 }
 
 export default App;
-
-
-
