@@ -132,3 +132,27 @@ input[type="text"] {
   margin-top: 10px;
   font-weight: bold;
 }
+
+  
+  .logout-btn {
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    float: center;
+    justify-content: center; 
+    /* margin-top: -50px; Adjust depending on where you want the button */
+    background-color: #007bff;
+    border: none;
+    margin: 10px;
+    margin-left: 48%;
+    padding: 10px 20px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .logout-btn:hover {
+    background-color: #0056b3;
+  }
+
