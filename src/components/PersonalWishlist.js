@@ -7,11 +7,11 @@ const PersonalWishlist = () => {
   const [editingItem, setEditingItem] = useState(null);  // For tracking the item being edited
   const [updatedItem, setUpdatedItem] = useState({ name: '', description: '', price: '', url: '', imageURL: '' });
   const navigate = useNavigate();
-  const listId = "6715b7f1affdde31c6318630";  // Your personal wishlist ID
+  const listId = "66fe3f8cd7b57e308cdea645";  // Your personal wishlist ID
 
   // Fetch the personal wishlist from the backend when the component mounts
   useEffect(() => {
-    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists/${listId}`)
+    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists?listId=${listId}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch wishlist');
