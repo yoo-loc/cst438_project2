@@ -33,12 +33,10 @@ const App = () => {
       <div className="app-container">
         <nav className="navbar">
           <Link className="nav-link" to="/"><img src={logo_img_placeholder} alt="placehold"/></Link>
-          <Link className="nav-link" to="/WishlistHome">Wishlists</Link>
-          <Link className="nav-link" to="/GiftIdeas">Gift Ideas</Link>
+          
 
           <Link className="nav-link" to="/Login">Log In</Link>
           <Link className="nav-link" to="/Signup">Sign up</Link>
-          <Link className="nav-link" to="/PersonalWishlist">Personal Wishlist</Link>
         </nav>
         <Routes>
           <Route path="/HomePage" element={<HomePage />} />
