@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import './Books.css';
+import './Games.css'; // Import CSS for styling
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const Books = () => {
-  const [books, setBooks] = useState([]);          // For storing books fetched from API
+const Games = () => {
+  const [games, setGames] = useState([]);          // For storing games fetched from API
   const [error, setError] = useState(null);        // For error handling
   const navigate = useNavigate();                  // Initialize useNavigate hook for navigation
-  // For storing search results
 
-  // Fetch books when component loads
+  // Fetch games when component loads
   useEffect(() => {
-    fetch('https://wishlistapi-b5777d959cf8.herokuapp.com/items/books')
+    fetch('https://wishlistapi-b5777d959cf8.herokuapp.com/items/games')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -18,11 +17,11 @@ const Books = () => {
         return response.json();
       })
       .then(data => {
-        setBooks(data); // Store fetched books
+        setGames(data); // Store fetched games
       })
       .catch(error => {
-        console.error('Error fetching books:', error);
-        setError('Error fetching books');
+        console.error('Error fetching games:', error);
+        setError('Error fetching games');
       });
   }, []);
 
@@ -33,7 +32,7 @@ const Books = () => {
     })
     .then(response => {
       if (response.ok) {
-        setBooks(books.filter(book => book.id !== itemId));  // Filter out deleted item
+        setGames(games.filter(game => game.id !== itemId));  // Filter out deleted item
       } else {
         console.error('Failed to delete item');
       }
@@ -42,8 +41,6 @@ const Books = () => {
       console.error('Error deleting item:', error);
     });
   };
-
-
 
   // Function to handle adding an item to the wishlist
   const handleAddToWishlist = (itemId) => {
@@ -75,37 +72,37 @@ const Books = () => {
     <div className="container">
       {/* Back button */}
       <button onClick={handleBackClick} className="btn btn-primary">Back to Homepage</button>
-      <h1>Books</h1>
+      <h1>Games</h1>
       
       {/* Display error if any */}
       {error ? (
         <p>{error}</p>
       ) : (
-        <div className="books-list">
-          {books.length > 0 ? (
-            books.map(book => (
-              <div key={book.id} className="book-item card">
-               <img 
-  src={book.imageURL} 
-  alt={book.name} 
-  className="wishlist-item-image"
-  style={{ maxWidth: '150px', height: 'auto' }}  // Limit width to 150px and adjust height automatically
-  onError={(e) => { e.target.src = 'https://via.placeholder.com/150'; }}  // Fallback image
-/>
+        <div className="games-list">
+          {games.length > 0 ? (
+            games.map(game => (
+              <div key={game.id} className="game-item card">
+                <img 
+                  src={game.imageURL} 
+                  alt={game.name} 
+                  className="wishlist-item-image"
+                  style={{ maxWidth: '150px', height: 'auto' }}  // Limit width to 150px and adjust height automatically
+                  onError={(e) => { e.target.src = 'https://via.placeholder.com/150'; }}  // Fallback image
+                />
                 <div className="card-body">
-                  <h3 className="card-title">{book.name}</h3>
-                  <p className="card-text">{book.description}</p>
-                  <p className="card-text">Price: ${book.price}</p>
-                  <a href={book.url} target="_blank" rel="noopener noreferrer" className="btn btn-link">View Item</a>
+                  <h3 className="card-title">{game.name}</h3>
+                  <p className="card-text">{game.description}</p>
+                  <p className="card-text">Price: ${game.price}</p>
+                  <a href={game.url} target="_blank" rel="noopener noreferrer" className="btn btn-link">View Item</a>
                   <div className="button-group">
                     <button 
-                      onClick={() => handleAddToWishlist(book.id)} 
+                      onClick={() => handleAddToWishlist(game.id)} 
                       className="btn btn-success"
                     >
                       Add to Wishlist
                     </button>
                     <button 
-                      onClick={() => handleDeleteItem(book.id)} 
+                      onClick={() => handleDeleteItem(game.id)} 
                       className="btn btn-danger"
                     >
                       Delete Item
@@ -115,11 +112,11 @@ const Books = () => {
               </div>
             ))
           ) : (
-            <p>No books available.</p>
+            <p>No games available.</p>
           )}
         </div>
       )}
     </div>
   );
 };
-export default Books;
+export default Games;
