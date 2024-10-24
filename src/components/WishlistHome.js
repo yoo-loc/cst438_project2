@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './WishlistHome.css';
 
-
 const WishlistHome = () => {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
@@ -22,10 +21,6 @@ const WishlistHome = () => {
 
   const handleBackToHome = () => {
     navigate('/HomePage');
-  };
-
-  const handleGiftAdd = () => {
-    navigate('/giftAdd');  // Navigate back to Homepage
   };
 
   const handleDeleteItem = (itemId) => {
@@ -73,13 +68,11 @@ const WishlistHome = () => {
         console.error('Error adding item to wishlist:', error);
         alert('An error occurred while adding the item to the wishlist.');
     });
-};
-
-
+  };
 
   return (
     <div className="wishlist-home-container">
-      <h1>Your Wishlist</h1>
+      <h1>Random Items that you can add to your wishlist</h1>
       <div className="wishlist-header">
         <button onClick={handleBackToHome} className="btn btn-primary">Back to Homepage</button>
         <div className="search-bar">
@@ -93,17 +86,6 @@ const WishlistHome = () => {
         </div>
       </div>
   
-      <button onClick={handleBackToHome} className="btn btn-primary">Back to Homepage</button>  {/* Back button */}
-      <input 
-        type="text" 
-        placeholder="Search items..." 
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}  // Update searchQuery on input change
-      />
-      <button onClick={handleSearch}>Search</button>  {/* Trigger search */}
-
-      <button onClick={handleGiftAdd} className="btn btn-primary">Add an Item</button>
-
       {items.length > 0 ? (
         <div className="wishlist-items">
           {items.map(item => (

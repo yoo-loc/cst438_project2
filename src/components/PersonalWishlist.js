@@ -114,7 +114,7 @@ const PersonalWishlist = () => {
 
   return (
     <div className="container">
-      <h1>My Personal Wishlist</h1>
+      <h1>Your Personal Wishlist</h1>
       <button onClick={handleBackToWishlistHome} className="btn btn-primary">Back to Wishlist Home</button>
 
       {personalItems.length > 0 ? (

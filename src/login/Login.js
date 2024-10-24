@@ -63,7 +63,7 @@ const Login = () => {
             autoComplete="off"
             placeholder="Enter your username"
           />
-          <label htmlFor="Password">Password:</label>
+          <label htmlFor="password">Password:</label> {/* Fixed htmlFor */}
           <input
             type="password"
             id="password"
