@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import './Books.css';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import './Clothing.css'; // Import the CSS for styling
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
-const Books = () => {
-  const [books, setBooks] = useState([]);          // For storing books fetched from API
-  const [error, setError] = useState(null);        // For error handling
-  const navigate = useNavigate();                  // Initialize useNavigate hook for navigation
-  // For storing search results
+const Clothing = () => {
+  const [clothingItems, setClothingItems] = useState([]); // For storing clothing items fetched from API
+  const [error, setError] = useState(null);               // For error handling
+  const navigate = useNavigate();                         // Initialize useNavigate hook for navigation
 
-  // Fetch books when component loads
+  // Fetch clothing items when component loads
   useEffect(() => {
-    fetch('https://wishlistapi-b5777d959cf8.herokuapp.com/items/books')
+    fetch('https://wishlistapi-b5777d959cf8.herokuapp.com/items/clothing')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -18,11 +17,11 @@ const Books = () => {
         return response.json();
       })
       .then(data => {
-        setBooks(data); // Store fetched books
+        setClothingItems(data); // Store fetched clothing items
       })
       .catch(error => {
-        console.error('Error fetching books:', error);
-        setError('Error fetching books');
+        console.error('Error fetching clothing items:', error);
+        setError('Error fetching clothing items');
       });
   }, []);
 
@@ -33,7 +32,7 @@ const Books = () => {
     })
     .then(response => {
       if (response.ok) {
-        setBooks(books.filter(book => book.id !== itemId));  // Filter out deleted item
+        setClothingItems(clothingItems.filter(item => item.id !== itemId)); // Remove the deleted item
       } else {
         console.error('Failed to delete item');
       }
@@ -42,8 +41,6 @@ const Books = () => {
       console.error('Error deleting item:', error);
     });
   };
-
-
 
   // Function to handle adding an item to the wishlist
   const handleAddToWishlist = (itemId) => {
@@ -75,37 +72,36 @@ const Books = () => {
     <div className="container">
       {/* Back button */}
       <button onClick={handleBackClick} className="btn btn-primary">Back to Homepage</button>
-      <h1>Books</h1>
+      <h1>Clothing</h1>
       
       {/* Display error if any */}
       {error ? (
         <p>{error}</p>
       ) : (
-        <div className="books-list">
-          {books.length > 0 ? (
-            books.map(book => (
-              <div key={book.id} className="book-item card">
-               <img 
-  src={book.imageURL} 
-  alt={book.name} 
-  className="wishlist-item-image"
-  style={{ maxWidth: '150px', height: 'auto' }}  // Limit width to 150px and adjust height automatically
-  onError={(e) => { e.target.src = 'https://via.placeholder.com/150'; }}  // Fallback image
-/>
+        <div className="clothing-list">
+          {clothingItems.length > 0 ? (
+            clothingItems.map(item => (
+              <div key={item.id} className="clothing-item card">
+                <img 
+                src={item.imageURL} 
+                alt={item.name} 
+                className="wishlist-item-image"
+                onError={(e) => { e.target.src = 'https://via.placeholder.com/150'; }}  // Fallback image
+              />
                 <div className="card-body">
-                  <h3 className="card-title">{book.name}</h3>
-                  <p className="card-text">{book.description}</p>
-                  <p className="card-text">Price: ${book.price}</p>
-                  <a href={book.url} target="_blank" rel="noopener noreferrer" className="btn btn-link">View Item</a>
+                  <h3 className="card-title">{item.name}</h3>
+                  <p className="card-text">{item.description}</p>
+                  <p className="card-text">Price: ${item.price}</p>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="btn btn-link">View Item</a>
                   <div className="button-group">
                     <button 
-                      onClick={() => handleAddToWishlist(book.id)} 
+                      onClick={() => handleAddToWishlist(item.id)} 
                       className="btn btn-success"
                     >
                       Add to Wishlist
                     </button>
                     <button 
-                      onClick={() => handleDeleteItem(book.id)} 
+                      onClick={() => handleDeleteItem(item.id)} 
                       className="btn btn-danger"
                     >
                       Delete Item
@@ -115,11 +111,12 @@ const Books = () => {
               </div>
             ))
           ) : (
-            <p>No books available.</p>
+            <p>No clothing items available.</p>
           )}
         </div>
       )}
     </div>
   );
 };
-export default Books;
+
+export default Clothing;
