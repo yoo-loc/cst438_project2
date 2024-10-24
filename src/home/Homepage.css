@@ -2,13 +2,22 @@
     position: relative;
     padding: 20px;
     height: 100vh; /* Optional to ensure full height of viewport */
+    text-align: center;
+    align-items: center;
   }
   
   .logout-btn {
-    float: right;
-    margin-top: -50px; /* Adjust depending on where you want the button */
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    float: center;
+    justify-content: center; 
+    /* margin-top: -50px; Adjust depending on where you want the button */
     background-color: #007bff;
     border: none;
+    margin: 10px;
+    margin-left: 48%;
     padding: 10px 20px;
     color: white;
     font-size: 16px;
@@ -18,4 +27,3 @@
   .logout-btn:hover {
     background-color: #0056b3;
   }
-  

@@ -8,6 +8,8 @@ import csumbLogo from './images/csumb_logo.png'
 import logo_img_placeholder from './images/logo_img_placeholder.png';
 import LandingPage from './components/LandingPage';
 import { BrowserRouter as Router, Route, Link, Routes, Navigate } from "react-router-dom";  // Make sure to import Navigate
+import WishlistHome from './components/WishlistHome';
+import WishlistView from './components/WishlistView';
 
 const user = localStorage.getItem("user");  // Checking if user is stored in localStorage
 // ProtectedRoute component to protect routes
@@ -35,11 +37,12 @@ const App = () => {
           <Route path="/HomePage" element={<HomePage />} />
           <Route path="/WishlistHome" element={
             <ProtectedRoute>
-              <HomePage />
+              <WishlistView />
             </ProtectedRoute>} />
           <Route path="/" element={<LandingPage />} />
 
           <Route path="/GiftIdeas" element={<GiftIdeas />} />
+          <Route path="/WishlistView" element={<WishlistView />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
           {user ? (
@@ -49,6 +52,8 @@ const App = () => {
           )}
         </Routes>
       </div>
+      <br></br>
+      <br></br>
       <footer>
         CST438 Software Engineering.2024© Elizarraraz, Roland, Guido, Tan.
         <div></div>

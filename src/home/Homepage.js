@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Homepage.css'; // Assuming you'll add some styles here
-import { useEffect, useState } from 'react';
+import GiftIdeas from '../components/GiftIdeas';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-//This file could be used to show all of a user's wishlists.
-//Should consider deleting the logout button and implementing functionality to the logout button in the navbar.
+
 const HomePage = () => {
   const navigate = useNavigate();
   const [wishlists, setWishlists] = useState([]);
@@ -25,22 +25,29 @@ const HomePage = () => {
     localStorage.removeItem('userToken');
     navigate('/login');
   };
+  const wishlistButton = () => {
+    navigate('/WishlistHome');
+  };
+  const giftButton = () => {
+    navigate('/GiftIdeas');
+  };
+  const handleGoToWishlist = () => {
+    navigate('/WishlistHome');  // Navigate to the Wishlist page
+  };
+
 
   return (
     <div className="homePage">
       <h1>Welcome to your Wishlist</h1>
       <p>This is your homepage after logging in.</p>
-      <div className="wishlists">
-        {wishlists.length > 0 ? (
-          <ul>
-            {wishlists.map((wishlist, index) => (
-              <li key={index}>{wishlist.name}</li>
-            ))}
-          </ul>
-        ) : (
-          <p>No wishlists available.</p>
-        )}
-      </div>
+      <br></br>
+
+      <button onClick={wishlistButton} className="btn btn-primary logout-btn">
+        Wishlist
+      </button>
+      <button onClick={giftButton} className="btn btn-primary logout-btn">
+        Gifts
+      </button>
       <button onClick={handleLogout} className="btn btn-primary logout-btn">
         Logout
       </button>

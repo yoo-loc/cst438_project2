@@ -1,61 +1,76 @@
 import React, { useState, useEffect } from 'react';
 
 const WishlistView = () => {
-    const [items, setItems] = useState([]);
-  
-    useEffect(() => {
-      // Fetch items for the specific user or list
-      fetch('https://wishlistapi-b5777d959cf8.herokuapp.com/items?user=user456&list=1')  // Adjust as needed
-        .then(response => response.json())
-        .then(data => {
-          setItems(data);  // Set the fetched items in state
-        })
-        .catch(error => {
-          console.error('Error fetching items:', error);
-        });
-    }, []);
-  
-    const handleDelete = (itemId) => {
-      fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/${itemId}`, {
-          method: 'DELETE',
-      })
-      .then(response => {
-          if (response.ok) {
-              // Remove the deleted item from the state
-              setItems(items.filter(item => item.id !== itemId));
-              console.log('Item deleted successfully');
-          } else {
-              console.error('Failed to delete item');
-          }
+  const [wishlists, setWishlists] = useState([]);
+
+  useEffect(() => {
+    // Fetch items for the specific user or list
+    fetch('https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists?userId=12345')  // Adjust as needed
+      .then(response => response.json())
+      .then(data => {
+        setWishlists(data);  // Set the fetched wishlists in state
       })
       .catch(error => {
-          console.error('Error during item deletion:', error);
+        console.error('Error fetching wishlists:', error);
+      });
+  }, []);
+  
+  const handleDelete = (wishlistId) => {
+    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists?${wishlistId}`, {
+      method: 'DELETE',
+    })
+      .then(response => {
+        if (response.ok) {
+          // Remove the deleted wishlist from the state
+          setWishlists(wishlists.filter(wishlist => wishlist.id !== wishlistId));
+          console.log('Wishlist deleted successfully');
+        } else {
+          console.error('Failed to delete wishlist');
+        }
+      })
+      .catch(error => {
+        console.error('Error during wishlist deletion:', error);
       });
   };
+  const handleAddWishlist = () => {
+    fetch('https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name: 'New Wishlist' }),
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          console.error('Failed to add wishlist');
+        }
+      })
+      .then(data => {
+        setWishlists([...wishlists, data]);
+        console.log('Wishlist added successfully');
+      })
+      .catch(error => {
+        console.error('Error during wishlist addition:', error);
+      });
+  }
   
-    return (
-      <div>
-        <h1>Your Wishlist</h1>
-        {items.length > 0 ? (
-          <ul>
-            {items.map(item => (
-              <li key={item.id}>
-                <h3>{item.name}</h3>
-                <p>{item.description}</p>
-                <p>Price: {item.price}</p>
-                <a href={item.url} target="_blank" rel="noopener noreferrer">View Item</a>
-                <br />
-                <button onClick={() => handleDelete(item.id)} className="btn btn-danger">
-                  Delete Item
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No items found.</p>
-        )}
-      </div>
-    );
+  return (
+    <div>
+      <h1>Wishlists</h1>
+      <button onClick={handleAddWishlist}>Add Wishlist</button>
+      <br />
+      <ul>
+        {wishlists.map(wishlist => (
+          <li key={wishlist.id}>
+            {wishlist.name}
+            <button onClick={() => handleDelete(wishlist.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
   };
   
   export default WishlistView;
