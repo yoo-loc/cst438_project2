@@ -61,7 +61,7 @@ console.log(randomizedGiftIdeas);
     };
 
     return (
-        <div>
+        <div className="container">
             <h1>Gift Ideas</h1>
             <button onClick={handleBack} className="btn btn-primary" style={{ marginBottom: '20px', marginLeft: '30px' }}>
                 Back
