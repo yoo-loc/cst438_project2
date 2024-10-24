@@ -1,10 +1,154 @@
 .homePage {
-    position: relative;
-    padding: 20px;
-    height: 100vh; /* Optional to ensure full height of viewport */
-    text-align: center;
-    align-items: center;
-  }
+  background: linear-gradient(135deg, #f06, #4a90e2);
+  min-height: 100vh;
+  padding: 50px;
+  font-family: 'Arial', sans-serif;
+  color: #fff;
+}
+
+.homePage h1 {
+  font-size: 36px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.homePage p {
+  font-size: 18px;
+  text-align: center;
+}
+
+.gifts-section {
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.gift-card {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+a {
+  color: #4a90e2;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.btn-primary {
+  background-color: #4a90e2;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #357ABD;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 40%;
+  right: 20px;
+}
+
+.gift-btn {
+  position: absolute;
+  left: 45%;
+  right: 45%;
+  margin: 10px;
+  text-align: center;
+}
+.wishlist-btn {
+  position: absolute;
+  left: 45%;
+  right: 45%;
+  top: 75%;
+  text-align: center;
+  margin: 10px;
+}
+
+.image-placeholder {
+  width: 300px;
+  height: 200px;
+  background-color: #d3d3d3;
+  display: block;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+  /* Styling the input field */
+input[type="text"] {
+  padding: 10px;  /* Add some padding */
+  border-radius: 5px;  /* Rounded corners */
+  border: 1px solid #ccc;  /* Light border */
+  width: 250px;  /* Make the input wider */
+  font-size: 16px;  /* Increase font size */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Styling the buttons */
+button {
+  padding: 10px 20px;  /* Add padding inside the button */
+  border-radius: 5px;  /* Rounded corners */
+  border: none;  /* Remove the default border */
+  background-color: #007bff;  /* Button color */
+  color: white;  /* Text color */
+  cursor: pointer;  /* Change cursor to pointer on hover */
+  font-size: 14px;  /* Make font size slightly bigger */
+  transition: background-color 0.3s ease;  /* Add a smooth hover transition */
+}
+
+button:hover {
+  background-color: #0056b3;  /* Darker blue on hover */
+}
+
+/* Adding space between the input and buttons */
+button + button {
+  margin-left: 10px;  /* Add space between Next and Cancel buttons */
+}
+
+/* Add some margin to the input field */
+input[type="text"] {
+  margin-right: 10px;
+}
+
+.footer {
+  background-color: #f8f9fa;  /* Light grey background */
+  padding: 20px;
+  text-align: center;
+  color: #333;
+  font-size: 14px;
+  border-top: 1px solid #ddd;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer p {
+  margin: 0;
+}
+
+.footer .csumb-logo {
+  margin-top: 10px;
+  width: 150px;
+  height: auto;
+}
+
+.footer strong {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
   
   .logout-btn {
      display: flex;
@@ -27,3 +171,4 @@
   .logout-btn:hover {
     background-color: #0056b3;
   }
+

@@ -7,6 +7,12 @@ import GiftIdeas from "./components/GiftIdeas";
 import csumbLogo from './images/csumb_logo.png'
 import logo_img_placeholder from './images/logo_img_placeholder.png';
 import LandingPage from './components/LandingPage';
+import Clothing from './components/Clothing'; 
+import Books from './components/Books';
+import Games from './components/Games'; // Import Games component
+
+import PersonalWishlist from './components/PersonalWishlist';  // Import PersonalWishlist
+
 import { BrowserRouter as Router, Route, Link, Routes, Navigate } from "react-router-dom";  // Make sure to import Navigate
 import WishlistHome from './components/WishlistHome';
 import WishlistView from './components/WishlistView';
@@ -32,6 +38,7 @@ const App = () => {
           <Link className="nav-link" to="/GiftIdeas">Gift Ideas</Link>
           <Link className="nav-link" to="/Login">Log In</Link>
           <Link className="nav-link" to="/Signup">Sign up</Link>
+          <Link className="nav-link" to="/PersonalWishlist">Personal Wishlist</Link>
         </nav>
         <Routes>
           <Route path="/HomePage" element={<HomePage />} />
@@ -45,11 +52,12 @@ const App = () => {
           <Route path="/WishlistView" element={<WishlistView />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
-          {user ? (
-            <Route path="/HomePage" element={<HomePage />} />
-          ) : (
-            <Route path="/HomePage" element={<Navigate to="/Login" />} />
-          )}
+          <Route path="/books" element={<Books />} />
+          <Route path="/videogames" element={<Games />} /> {/* Corrected route */}
+
+          <Route path="/clothing" element={<Clothing />} />
+
+          <Route path="/PersonalWishlist" element={<ProtectedRoute><PersonalWishlist /></ProtectedRoute>} />
         </Routes>
       </div>
       <br></br>
@@ -66,6 +74,3 @@ const App = () => {
 }
 
 export default App;
-
-
-
