@@ -45,6 +45,17 @@ const GiftIdeas = () => {
         }
     ];
 
+    // Function to shuffle the array
+const shuffleArray = (array) => {
+    return array.sort(() => Math.random() - 0.5);
+};
+
+// Use the shuffleArray function
+const randomizedGiftIdeas = shuffleArray(ideas);
+
+// Display the shuffled array
+console.log(randomizedGiftIdeas);
+
     const handleBack = () => {
         navigate(-1);  // This will navigate back to the previous page
     };
