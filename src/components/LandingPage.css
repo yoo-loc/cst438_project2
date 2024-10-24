@@ -1,0 +1,29 @@
+.getStartedbtn{
+    text-align: center;
+    align-items: center;
+    border-radius: 30px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 10px 20px;
+    height: 50px;
+    width: 150px;
+    font-size: large;
+    font-weight: bold;
+}
+
+.app-home{
+  background: linear-gradient(135deg, #f06, #4a90e2);
+  padding: 30%;
+  padding-top: 70px;
+  text-align: center;
+}
+
+.mainContent{
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: space-around; 
+    gap: 20px;
+    margin: 30px;
+    
+
+}

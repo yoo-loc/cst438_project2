@@ -70,11 +70,17 @@ const WishlistHome = () => {
     });
   };
 
+  const toPersonalWishlist = () => {
+    navigate('/PersonalWishlist');
+  };
+
   return (
     <div className="wishlist-home-container">
       <h1>Random Items that you can add to your wishlist</h1>
       <div className="wishlist-header">
         <button onClick={handleBackToHome} className="btn btn-primary">Back to Homepage</button>
+        <button onClick={toPersonalWishlist} className="btn btn-primary wish-btn">Your Wishlist</button>
+
         <div className="search-bar">
           <input 
             type="text" 
