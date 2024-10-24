@@ -112,10 +112,16 @@ const PersonalWishlist = () => {
     navigate('/WishlistHome');
   };
 
+  const handleBackToHome = () => {
+    navigate('/Homepage');
+  };
+
   return (
     <div className="container">
       <h1>Your Personal Wishlist</h1>
-      <button onClick={handleBackToWishlistHome} className="btn btn-primary">Back to Wishlist Home</button>
+      <button onClick={handleBackToWishlistHome} className="btn btn-primary">Add an item</button>
+      <button onClick={handleBackToHome} className="btn btn-primary">Back to Home Page</button>
+
 
       {personalItems.length > 0 ? (
         <ul>

@@ -56,8 +56,24 @@ a:hover {
 
 .logout-btn {
   position: absolute;
-  top: 20px;
+  top: 40%;
   right: 20px;
+}
+
+.gift-btn {
+  position: absolute;
+  left: 45%;
+  right: 45%;
+  margin: 10px;
+  text-align: center;
+}
+.wishlist-btn {
+  position: absolute;
+  left: 45%;
+  right: 45%;
+  top: 75%;
+  text-align: center;
+  margin: 10px;
 }
 
 .image-placeholder {

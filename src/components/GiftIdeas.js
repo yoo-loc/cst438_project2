@@ -45,6 +45,17 @@ const GiftIdeas = () => {
         }
     ];
 
+    // Function to shuffle the array
+const shuffleArray = (array) => {
+    return array.sort(() => Math.random() - 0.5);
+};
+
+// Use the shuffleArray function
+const randomizedGiftIdeas = shuffleArray(ideas);
+
+// Display the shuffled array
+console.log(randomizedGiftIdeas);
+
     const handleBack = () => {
         navigate(-1);  // This will navigate back to the previous page
     };
@@ -52,7 +63,7 @@ const GiftIdeas = () => {
     return (
         <div>
             <h1>Gift Ideas</h1>
-            <button onClick={handleBack} className="btn btn-primary" style={{ marginBottom: '20px' }}>
+            <button onClick={handleBack} className="btn btn-primary" style={{ marginBottom: '20px', marginLeft: '30px' }}>
                 Back
             </button>
             <ul className="giftIdeas">
