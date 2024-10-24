@@ -10,6 +10,9 @@ import LandingPage from './components/LandingPage';
 import Clothing from './components/Clothing'; 
 import Books from './components/Books';
 import Games from './components/Games'; // Import Games component
+import Gadgets from './components/Gadgets'; // Import Games component
+import Giftcard from './components/giftcard'; // Import Games component
+
 
 import PersonalWishlist from './components/PersonalWishlist';  // Import PersonalWishlist
 
@@ -53,6 +56,9 @@ const App = () => {
           <Route path="/videogames" element={<Games />} /> {/* Corrected route */}
 
           <Route path="/clothing" element={<Clothing />} />
+          <Route path="/Gadgets" element={<Gadgets />} />
+          <Route path="/giftcard" element={<Giftcard />} />
+
 
           <Route path="/PersonalWishlist" element={<ProtectedRoute><PersonalWishlist /></ProtectedRoute>} />
         </Routes>
