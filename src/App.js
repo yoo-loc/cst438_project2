@@ -32,7 +32,8 @@ const App = () => {
     <Router>
       <div className="app-container">
         <nav className="navbar">
-          <Link className="nav-link" to="/"><img src={logo_img_placeholder} alt="placehold"/></Link>
+          {/* <Link className="nav-link" to="/"><img src={logo_img_placeholder} alt="placehold"/></Link> */}
+          <Link className="nav-link" to="/">Home</Link>
           
 
           <Link className="nav-link" to="/Login">Log In</Link>
