@@ -111,7 +111,7 @@ const Giftcard = () => {
               </div>
             ))
           ) : (
-            <p>No clothing items available.</p>
+            <p>No giftcard items available.</p>
           )}
         </div>
       )}

@@ -56,7 +56,7 @@ const App = () => {
 
           <Route path="/clothing" element={<Clothing />} />
           <Route path="/Gadgets" element={<Gadgets />} />
-          <Route path="/giftcard" element={<Giftcard />} />
+          <Route path="/giftcards" element={<Giftcard />} />
 
 
           <Route path="/PersonalWishlist" element={<ProtectedRoute><PersonalWishlist /></ProtectedRoute>} />
