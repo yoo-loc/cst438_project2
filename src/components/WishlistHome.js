@@ -12,16 +12,16 @@ const WishlistHome = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const handleAddItemClick = () => {
-    setShowConfirmation(true);
-  };
-  const handleConfirmAdd = () => {
-    handleAddToDatabase();
-    setShowConfirmation(false);
-  };
-  const handleCancelAdd = () => {
-    setShowConfirmation(false);
-  };
+  // const handleAddItemClick = () => {
+  //   setShowConfirmation(true);
+  // };
+  // const handleConfirmAdd = () => {
+  //   handleAddToDatabase();
+  //   setShowConfirmation(false);
+  // };
+  // const handleCancelAdd = () => {
+  //   setShowConfirmation(false);
+  // };
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -97,7 +97,6 @@ const WishlistHome = () => {
   const handleAddToWishlist = (itemId) => {
     const rawlistId = localStorage.getItem('selectedList');
     const listId = rawlistId ? JSON.parse(rawlistId) : null;
-    alert(`Adding item ${itemId} to wishlist ${listId}`);
     fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists/${listId}/add-existing-item?itemId=${itemId}`, {
       method: 'POST',
     })
@@ -113,24 +112,23 @@ const WishlistHome = () => {
         alert('An error occurred while adding the item to the wishlist.');
     });
   };
-  const handleAddToDatabase = () => {
-    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items?`, {
-      method: 'POST',
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('Item added to your personal wishlist!');
-            navigate('/PersonalWishlist');  // Navigate to the personal wishlist page after adding
-        } else {
-            alert('Failed to add item to wishlist');
-        }
-        setEditingItem(null);  // Exit editing mode
-    })
-    .catch(error => {
-        console.error('Error adding item to wishlist:', error);
-        alert('An error occurred while adding the item to the wishlist.');
-    });
-  };
+  // const handleAddToDatabase = () => {
+  //   fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items?`, {
+  //     method: 'POST',
+  //   })
+  //   .then(response => {
+  //       if (response.ok) {
+  //           alert('Item added to your personal wishlist!');
+  //       } else {
+  //           alert('Failed to add item to wishlist');
+  //       }
+  //       setEditingItem(null);  // Exit editing mode
+  //   })
+  //   .catch(error => {
+  //       console.error('Error adding item to wishlist:', error);
+  //       alert('An error occurred while adding the item to the wishlist.');
+  //   });
+  // };
   const handleEditItem = (item) => {
     setEditingItem(item.id);
     setUpdatedItem({ 
@@ -311,7 +309,8 @@ const WishlistHome = () => {
                 <option value="HandCraft">Handmade Craft</option>
                 <option value="Games">Games</option>
               </select>
-              {!showConfirmation ? (
+              <h2>Work In Progress</h2>
+              {/* {!showConfirmation ? (
                 <button onClick={handleAddItemClick} className="btn btn-primary">Add Item</button>
               ) : (
                 <div>
@@ -319,7 +318,7 @@ const WishlistHome = () => {
                   <button onClick={handleConfirmAdd} className="btn btn-success">Yes</button>
                   <button onClick={handleCancelAdd} className="btn btn-danger">No</button>
                 </div>
-              )}
+              )} */}
             </div>
           )}
         </div>

@@ -6,7 +6,6 @@ import bookImage from '../images/book.png';
 import gadgetsImage from '../images/gadgets.png';
 import clothingImage from '../images/clothing.png';
 import giftCardImage from '../images/giftcard.png';
-import craftImage from '../images/crafts.png';
 import videoGamesImage from '../images/video-games.png';
 
 const GiftIdeas = () => {
@@ -34,11 +33,6 @@ const GiftIdeas = () => {
             route: '/giftcards',  // Route for gift cards category
         },
         {
-            title: 'Handmade Crafts',
-            image: craftImage,
-            route: '/handmadecrafts',  // Route for handmade crafts category
-        },
-        {
             title: 'Top Video Games (2023)',
             image: videoGamesImage,
             route: '/videogames',  // Route for video games category
@@ -61,7 +55,7 @@ console.log(randomizedGiftIdeas);
     };
 
     return (
-        <div>
+        <div className="container">
             <h1>Gift Ideas</h1>
             <button onClick={handleBack} className="btn btn-primary" style={{ marginBottom: '20px', marginLeft: '30px' }}>
                 Back

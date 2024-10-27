@@ -9,7 +9,7 @@ const Gadgets = () => {
 
   // Fetch clothing items when component loads
   useEffect(() => {
-    fetch('https://wishlistapi-b5777d959cf8.herokuapp.com/items/gadgets')
+    fetch('https://wishlistapi-b5777d959cf8.herokuapp.com/items/gadget')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

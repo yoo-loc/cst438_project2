@@ -5,12 +5,8 @@ import './Homepage.css'; // Assuming you'll add some styles here
 const HomePage = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Your effect logic here
-  }, []);
-
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    localStorage.setItem("user", null);  // Clear the user from localStorage
     navigate('/login');
   };
   const giftButton = () => {

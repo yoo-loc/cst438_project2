@@ -36,7 +36,6 @@ const Login = () => {
 
         // Store user details in localStorage
         localStorage.setItem("user", JSON.stringify(data.id));
-        alert(`Login Successful: Welcome ${data.id}`);
 
         // Redirect to homepage or any protected route
         navigate("/Homepage");
