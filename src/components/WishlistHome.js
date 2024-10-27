@@ -11,6 +11,17 @@ const WishlistHome = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const handleAddItemClick = () => {
+    setShowConfirmation(true);
+  };
+  const handleConfirmAdd = () => {
+    handleAddToDatabase();
+    setShowConfirmation(false);
+  };
+  const handleCancelAdd = () => {
+    setShowConfirmation(false);
+  };
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -21,10 +32,6 @@ const WishlistHome = () => {
   const handleTabSwitch = (tab) => {
     setActiveTab(tab);
   };
-  useEffect(() => {
-    const listId = localStorage.getItem('selectedList');
-    console.log('Personal Wishlist ID:', listId);
-  }, []);
 
   // Fetch the items to display in modal tab1
   useEffect(() => {
@@ -39,12 +46,14 @@ const WishlistHome = () => {
   }, []);
   
   useEffect(() => {
-    const listId = localStorage.getItem('selectedList');
+    const rawlistId = localStorage.getItem('selectedList');
+    const listId = rawlistId ? JSON.parse(rawlistId) : null;
+
     if (listId) {
       fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists/${listId}`)
         .then(response => response.json())
         .then(data => {
-          setListItems(data);
+          setListItems(data.items);
         })
         .catch(error => {
           console.error('Error fetching items from wishlist:', error);
@@ -57,7 +66,8 @@ const WishlistHome = () => {
   };
 
   const handleDeleteItem = (itemId) => {
-    const listId = localStorage.getItem('selectedList');
+    const rawlistId = localStorage.getItem('selectedList');
+    const listId = rawlistId ? JSON.parse(rawlistId) : null;
     fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists/${listId}/remove-item/${itemId}`, {
       method: 'DELETE'
     })
@@ -85,14 +95,15 @@ const WishlistHome = () => {
   };
 
   const handleAddToWishlist = (itemId) => {
-    const listId = localStorage.getItem('selectedList');
+    const rawlistId = localStorage.getItem('selectedList');
+    const listId = rawlistId ? JSON.parse(rawlistId) : null;
+    alert(`Adding item ${itemId} to wishlist ${listId}`);
     fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists/${listId}/add-existing-item?itemId=${itemId}`, {
       method: 'POST',
     })
     .then(response => {
         if (response.ok) {
-            alert('Item added to your personal wishlist!');
-            navigate('/PersonalWishlist');  // Navigate to the personal wishlist page after adding
+            alert('Item added to your personal wishlist!'); // Navigate to the personal wishlist page after adding
         } else {
             alert('Failed to add item to wishlist');
         }
@@ -113,6 +124,7 @@ const WishlistHome = () => {
         } else {
             alert('Failed to add item to wishlist');
         }
+        setEditingItem(null);  // Exit editing mode
     })
     .catch(error => {
         console.error('Error adding item to wishlist:', error);
@@ -207,7 +219,7 @@ const WishlistHome = () => {
             Can't find what you're looking for?
           </button>
         </div>
-
+        <button onClick={closeModal} className="btn btn-secondary">Close Modal</button>
         <div className="modal-content">
           {activeTab === 'tab1' && (
             <div>
@@ -228,7 +240,6 @@ const WishlistHome = () => {
                         src={item.imageURL} 
                         alt={item.name} 
                         className="item-image"
-                        onError={(e) => { e.target.src = 'https://via.placeholder.com/150'; }}  // Fallback image
                       />
                       <div className="item-details">
                         <h3>{item.name}</h3>
@@ -245,14 +256,73 @@ const WishlistHome = () => {
                   ))}
                 </div>
               ) : (
-                <p>No items found.</p>//THIS SHOULD NOT HAPPEN
+                <p>No items found.</p>
               )}
             </div>
           )}
-          {activeTab === 'tab2' && <div>Content for Tab 2</div>}
+          {activeTab === 'tab2' && (
+            <div className="add-item-form">
+              <input
+                type="text"
+                name="name"
+                value={updatedItem.name}
+                onChange={handleInputChange}
+                placeholder="Item Name"
+              />
+              <input
+                type="text"
+                name="description"
+                value={updatedItem.description}
+                onChange={handleInputChange}
+                placeholder="Item Description"
+              />
+              <input
+                type="text"
+                name="imageURL"
+                value={updatedItem.imageURL}
+                onChange={handleInputChange}
+                placeholder="Item Image URL"
+              />
+              <input
+                type="text"
+                name="url"
+                value={updatedItem.url}
+                onChange={handleInputChange}
+                placeholder="Item URL"
+              />
+              <input
+                type="number"
+                name="price"
+                value={updatedItem.price}
+                onChange={handleInputChange}
+                placeholder="Item Price"
+              />
+              <select
+                name="category"
+                value={updatedItem.category || ''}
+                onChange={handleInputChange}
+                className="form-select"
+              >
+                <option value="">Select Category</option>
+                <option value="GiftCard">Gift</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Gadget">Gadgets</option>
+                <option value="Books">Books</option>
+                <option value="HandCraft">Handmade Craft</option>
+                <option value="Games">Games</option>
+              </select>
+              {!showConfirmation ? (
+                <button onClick={handleAddItemClick} className="btn btn-primary">Add Item</button>
+              ) : (
+                <div>
+                  <p>Are you sure?</p>
+                  <button onClick={handleConfirmAdd} className="btn btn-success">Yes</button>
+                  <button onClick={handleCancelAdd} className="btn btn-danger">No</button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-        <p>Modal content goes here...</p>
-        <button onClick={closeModal} className="btn btn-secondary">Close Modal</button>
       </Modal>
     
       {listitems.length > 0 ? (
@@ -302,7 +372,7 @@ const WishlistHome = () => {
                 </div>
               ) : (
                 <div className="item-details">
-                  <img 
+                  <img class="item-image"
                     src={item.imageURL} 
                     alt={item.name} 
                     onError={(e) => e.target.src = 'https://via.placeholder.com/150'} 

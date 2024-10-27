@@ -7,9 +7,10 @@ const PersonalWishlist = () => {
   const [editingList, setEditingList] = useState(null);  // For tracking the item being edited
   const [updatedList, setUpdatedList] = useState({ name: ''});
   const navigate = useNavigate();
-  const userId = '12345';  // Adjust as needed
 
   useEffect(() => {
+    const rawUserId = localStorage.getItem('user');
+    const userId = rawUserId ? JSON.parse(rawUserId) : null;
     fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists?userId=${userId}`)  // Adjust as needed
       .then(response => {
         if (!response.ok) {
@@ -28,7 +29,7 @@ const PersonalWishlist = () => {
       .catch(error => {
         console.error('Error fetching personal wishlist:', error);
       });
-  }, [userId]);
+  }, []);
 
   const handleDeleteWishlist = (wishlistId) => {
     fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists/${wishlistId}`, {
@@ -48,7 +49,10 @@ const PersonalWishlist = () => {
   };
 
   const handleAddList = (data) => {
-    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists?userId=${data.id}&name=${data.name}&isPublic=true`, {
+    const rawUserId = localStorage.getItem('user');
+    const userId = rawUserId ? JSON.parse(rawUserId) : null;
+    alert(`Adding list: ${userId}`);
+    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists?userId=${userId}&name=${data.name}&isPublic=true`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -161,6 +165,12 @@ const PersonalWishlist = () => {
                     <h3>{lists.name}</h3>
                   </div>
                   <div className="item-actions">
+                  <button onClick={() => {
+                    localStorage.setItem('selectedList', JSON.stringify(lists.id));
+                    navigate('/wishlistHome');
+                  }} className="btn btn-secondary">
+                    View List
+                  </button>
                     <button onClick={() => handleEditList(lists)} className="btn btn-info">
                       Edit List  
                     </button>
