@@ -3,10 +3,20 @@ import './Clothing.css'; // Import the CSS for styling
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const Clothing = () => {
+  const [selectedList, setSelectedList] = useState(''); 
+  const [personalLists, setPersonalLists] = useState([]);
   const [clothingItems, setClothingItems] = useState([]); // For storing clothing items fetched from API
   const [error, setError] = useState(null);               // For error handling
   const navigate = useNavigate();                         // Initialize useNavigate hook for navigation
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);  // State to track login status
+  useEffect(() => {
+    const rawUserId = localStorage.getItem('user');
+    const userId = rawUserId ? JSON.parse(rawUserId) : null;
+    if(userId==null){
+      setIsLoggedIn(false);
+    }
+    setIsLoggedIn(true);
+  }, []);
   // Fetch clothing items when component loads
   useEffect(() => {
     fetch('https://wishlistapi-b5777d959cf8.herokuapp.com/items/clothing')
@@ -24,28 +34,32 @@ const Clothing = () => {
         setError('Error fetching clothing items');
       });
   }, []);
-
-  // Function to handle deletion of an item
-  const handleDeleteItem = (itemId) => {
-    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/${itemId}`, {
-      method: 'DELETE'
-    })
-    .then(response => {
-      if (response.ok) {
-        setClothingItems(clothingItems.filter(item => item.id !== itemId)); // Remove the deleted item
-      } else {
-        console.error('Failed to delete item');
-      }
-    })
-    .catch(error => {
-      console.error('Error deleting item:', error);
-    });
-  };
+  
+  useEffect(() => {
+    const rawUserId = localStorage.getItem('user');
+    const userId = rawUserId ? JSON.parse(rawUserId) : null;
+    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists?userId=${userId}`)  // Adjust as needed
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch wishlist');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Fetched data:', data);  // Log the fetched data for debugging
+        if (Array.isArray(data)) {
+          setPersonalLists(data);  // Set the wishlist items from the backend response
+        } else {
+          console.error("No items found in personal wishlist.");
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching personal wishlist:', error);
+      });
+  }, []);
 
   // Function to handle adding an item to the wishlist
-  const handleAddToWishlist = (itemId) => {
-    const listId = "6715b7f1affdde31c6318630";  // Your personal wishlist ID (use the correct one)
-    
+  const handleAddToWishlist = (itemId,listId) => {
     fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists/${listId}/add-existing-item?itemId=${itemId}`, {
       method: 'POST',
     })
@@ -94,18 +108,29 @@ const Clothing = () => {
                   <p className="card-text">Price: ${item.price}</p>
                   <a href={item.url} target="_blank" rel="noopener noreferrer" className="btn btn-link">View Item</a>
                   <div className="button-group">
-                    <button 
-                      onClick={() => handleAddToWishlist(item.id)} 
-                      className="btn btn-success"
-                    >
-                      Add to Wishlist
-                    </button>
-                    <button 
-                      onClick={() => handleDeleteItem(item.id)} 
-                      className="btn btn-danger"
-                    >
-                      Delete Item
-                    </button>
+                  {isLoggedIn && (
+                      <>
+                        <select 
+                          className="form-select" 
+                          onChange={(e) => setSelectedList(e.target.value)}
+                        >
+                          <option value="">Select Wishlist</option>
+                          {personalLists.map(list => (
+                            <option key={list.id} value={list.id}>{list.name}</option>
+                          ))}
+                        </select>
+                        <button 
+                          className="btn btn-primary mt-2" 
+                          onClick={() => {
+                            if (!selectedList) {
+                              return;
+                            }
+                            handleAddToWishlist(item.id,selectedList)
+                            }}>
+                          Add to Wishlist
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
