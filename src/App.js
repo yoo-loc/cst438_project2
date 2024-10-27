@@ -12,19 +12,17 @@ import Books from './components/Books';
 import Games from './components/Games'; // Import Games component
 import Gadgets from './components/Gadgets'; // Import Games component
 import Giftcard from './components/giftcard'; // Import Games component
-
-
-import PersonalWishlist from './components/PersonalWishlist';  // Import PersonalWishlist
-
-import { BrowserRouter as Router, Route, Link, Routes, Navigate } from "react-router-dom";  // Make sure to import Navigate
 import WishlistHome from './components/WishlistHome';
-import WishlistView from './components/WishlistView';
+import PersonalWishlist from './components/PersonalWishlist';  // Import PersonalWishlist
+import { BrowserRouter as Router, Route, Link, Routes, Navigate } from "react-router-dom";  // Make sure to import Navigate
 
-const user = localStorage.getItem("user");  // Checking if user is stored in localStorage
+const rawuser=localStorage.getItem('user');
+const isLoggedIn = rawuser ? JSON.parse(rawuser) : null;
 // ProtectedRoute component to protect routes
 const ProtectedRoute = ({ children }) => {
-  
-  if (!user) {
+  const rawUser = localStorage.getItem("user");
+  const user = rawUser ? JSON.parse(rawUser) : null;
+  if (user===null) {
     return <Navigate to="/Login" />;  // Redirect to Login if user is not authenticated
   }
   return children;
@@ -35,32 +33,28 @@ const App = () => {
     <Router>
       <div className="app-container">
         <nav className="navbar">
-          {/* <Link className="nav-link" to="/"><img src={logo_img_placeholder} alt="placehold"/></Link> */}
-          <Link className="nav-link" to="/">Home</Link>
-          
-
-          <Link className="nav-link" to="/Login">Log In</Link>
-          <Link className="nav-link" to="/Signup">Sign up</Link>
+          <Link className="nav-link" to="/"><img src={logo_img_placeholder} alt="placehold"/></Link>
+          <Link className="nav-link" to="/Homepage">Home</Link>
+          <Link className="nav-link" to="/GiftIdeas">Gift Ideas</Link>
+          {isLoggedIn===null && <Link className="nav-link" to="/Login">Log In</Link>}
+          {isLoggedIn===null && <Link className="nav-link" to="/Signup">Sign up</Link>}
+          {isLoggedIn!=null && <Link className="nav-link" to="/PersonalWishlist">Personal Wishlists</Link>}
         </nav>
         <Routes>
-          <Route path="/HomePage" element={<HomePage />} />
-          <Route path="/WishlistHome" element={
-            <ProtectedRoute>
-              <WishlistView />
-            </ProtectedRoute>} />
           <Route path="/" element={<LandingPage />} />
-
+          <Route path="/HomePage" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+          <Route path="/WishlistHome" element={<ProtectedRoute><WishlistHome /></ProtectedRoute>} />
           <Route path="/GiftIdeas" element={<GiftIdeas />} />
-          <Route path="/WishlistView" element={<WishlistView />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
-          <Route path="/books" element={<Books />} />
-          <Route path="/videogames" element={<Games />} /> {/* Corrected route */}
 
+          <Route path="/books" element={<Books />} />
+          <Route path="/videogames" element={<Games />} /> 
           <Route path="/clothing" element={<Clothing />} />
           <Route path="/Gadgets" element={<Gadgets />} />
           <Route path="/giftcards" element={<Giftcard />} />
 
+          <Route path="/AccountManager" element={<ProtectedRoute><AccountManager /></ProtectedRoute>} />
 
           <Route path="/PersonalWishlist" element={<ProtectedRoute><PersonalWishlist /></ProtectedRoute>} />
         </Routes>
