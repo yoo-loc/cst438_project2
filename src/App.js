@@ -2,7 +2,7 @@ import './App.css'; // Import the CSS
 import Signup from "./signup/Signup";
 import Login from "./login/Login";
 import HomePage from "./home/Homepage";  // Correct path
-import WishlistHome from "./components/WishlistHome";
+import AccountManager from "./components/AccountManager";
 import GiftIdeas from "./components/GiftIdeas";
 import csumbLogo from './images/csumb_logo.png'
 import logo_img_placeholder from './images/logo_img_placeholder.png';
@@ -17,10 +17,13 @@ import Giftcard from './components/giftcard'; // Import Games component
 import PersonalWishlist from './components/PersonalWishlist';  // Import PersonalWishlist
 
 import { BrowserRouter as Router, Route, Link, Routes, Navigate } from "react-router-dom";  // Make sure to import Navigate
+import WishlistHome from './components/WishlistHome';
+import WishlistView from './components/WishlistView';
 
+const user = localStorage.getItem("user");  // Checking if user is stored in localStorage
 // ProtectedRoute component to protect routes
 const ProtectedRoute = ({ children }) => {
-  const user = localStorage.getItem("user");  // Checking if user is stored in localStorage
+  
   if (!user) {
     return <Navigate to="/Login" />;  // Redirect to Login if user is not authenticated
   }
@@ -43,12 +46,12 @@ const App = () => {
           <Route path="/HomePage" element={<HomePage />} />
           <Route path="/WishlistHome" element={
             <ProtectedRoute>
-              <WishlistHome />
-            </ProtectedRoute>
-          } />
-
+              <WishlistView />
+            </ProtectedRoute>} />
           <Route path="/" element={<LandingPage />} />
+
           <Route path="/GiftIdeas" element={<GiftIdeas />} />
+          <Route path="/WishlistView" element={<WishlistView />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
           <Route path="/books" element={<Books />} />

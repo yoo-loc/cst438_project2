@@ -1,13 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Homepage.css'; // Assuming you'll add some styles here
-import GiftIdeas from '../components/GiftIdeas';
 
 const HomePage = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('userToken');
+    localStorage.setItem("user", null);  // Clear the user from localStorage
     navigate('/login');
   };
   const giftButton = () => {

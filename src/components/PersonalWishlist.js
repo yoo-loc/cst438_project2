@@ -3,15 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import './PersonalWishlist.css';  // Import your custom CSS
 
 const PersonalWishlist = () => {
-  const [personalItems, setPersonalItems] = useState([]);
-  const [editingItem, setEditingItem] = useState(null);  // For tracking the item being edited
-  const [updatedItem, setUpdatedItem] = useState({ name: '', description: '', price: '', url: '', imageURL: '' });
+  const [personalLists, setPersonalLists] = useState([]);
+  const [editingList, setEditingList] = useState(null);  // For tracking the item being edited
+  const [updatedList, setUpdatedList] = useState({ name: ''});
   const navigate = useNavigate();
-  const listId = "6715b7f1affdde31c6318630";  // Your personal wishlist ID
 
-  // Fetch the personal wishlist from the backend when the component mounts
   useEffect(() => {
-    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists/${listId}`)
+    const rawUserId = localStorage.getItem('user');
+    const userId = rawUserId ? JSON.parse(rawUserId) : null;
+    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists?userId=${userId}`)  // Adjust as needed
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch wishlist');
@@ -19,8 +19,9 @@ const PersonalWishlist = () => {
         return response.json();
       })
       .then(data => {
-        if (data.items) {
-          setPersonalItems(data.items);  // Set the wishlist items from the backend response
+        console.log('Fetched data:', data);  // Log the fetched data for debugging
+        if (Array.isArray(data)) {
+          setPersonalLists(data);  // Set the wishlist items from the backend response
         } else {
           console.error("No items found in personal wishlist.");
         }
@@ -28,17 +29,16 @@ const PersonalWishlist = () => {
       .catch(error => {
         console.error('Error fetching personal wishlist:', error);
       });
-  }, [listId]);
+  }, []);
 
-  // Handle deleting an item from the personal wishlist via backend
-  const handleDeleteItem = (itemId) => {
-    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists/${listId}/remove-item/${itemId}`, {
+  const handleDeleteWishlist = (wishlistId) => {
+    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists/${wishlistId}`, {
       method: 'DELETE',
     })
       .then(response => {
         if (response.ok) {
-          const updatedItems = personalItems.filter(item => item.id !== itemId);
-          setPersonalItems(updatedItems);  // Update the UI
+          const updatedItems = personalLists.filter(lists => lists.id !== wishlistId);
+          setPersonalLists(updatedItems);  // Update the UI
         } else {
           console.error("Failed to delete item from wishlist.");
         }
@@ -48,68 +48,77 @@ const PersonalWishlist = () => {
       });
   };
 
-  // Handle editing an item
-  const handleEditItem = (item) => {
-    setEditingItem(item.id);
-    setUpdatedItem({ 
-      name: item.name, 
-      description: item.description, 
-      price: item.price, 
-      url: item.url, 
-      imageURL: item.imageURL 
-    });
+  const handleAddList = (data) => {
+    const rawUserId = localStorage.getItem('user');
+    const userId = rawUserId ? JSON.parse(rawUserId) : null;
+    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists?userId=${userId}&name=${data.name}&isPublic=true`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(err => { throw new Error(err.message || 'Failed to create list'); });
+        }
+        return response.json();
+      })
+      .then(data => {
+        setPersonalLists([...personalLists, data]);
+      })
+      .catch(error => {
+        console.error('Error adding list:', error);
+        alert(`An error occurred while adding the list: ${error.message}`);
+      });
   };
 
-  // Handle updating an item (Here you connect to the backend)
-  const handleUpdateItem = (itemId) => {
-    // Log the data you're about to send for debugging
-    console.log("Updated item data:", updatedItem);
-
-    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/${itemId}`, {
+  const handleUpdateList = (lists) => {
+    const params = new URLSearchParams();
+    if (updatedList.name) {
+      params.append('name', updatedList.name);
+    }
+    fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists/${lists.id}?${params.toString()}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',  // Make sure the content type is set correctly
       },
-      body: JSON.stringify({
-        name: updatedItem.name,
-        description: updatedItem.description,
-        price: parseFloat(updatedItem.price),  // Ensure the correct data type is sent
-        url: updatedItem.url,
-        imageURL: updatedItem.imageURL,
-      }),
     })
-    .then((response) => {
-      if (!response.ok) {
-        return response.json().then(err => { throw new Error(err.message || 'Failed to update item'); });
-      }
-      return response.json();
-    })
-    .then((data) => {
-      alert('Item updated successfully!');
-      // Update the UI state with the updated item
-      const updatedItems = personalItems.map(item =>
-        item.id === itemId ? { ...item, ...data } : item
-      );
-      setPersonalItems(updatedItems);
-      setEditingItem(null);  // Exit editing mode
-    })
-    .catch((error) => {
-      console.error('Error updating item:', error);
-      alert(`An error occurred while updating the item: ${error.message}`);
+      .then((response) => {
+        if (!response.ok) {
+          return response.json().then(err => { throw new Error(err.message || 'Failed to update list'); });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert('List updated successfully!');
+        // Update the UI state with the updated item
+        const updatedItems = personalLists.map(list =>
+          list.id === lists.id ? { ...list, ...data } : list
+        );
+        setPersonalLists(updatedItems);
+        setEditingList(null);  // Exit editing mode
+      })
+      .catch((error) => {
+        console.error('Error updating item:', error);
+        alert(`An error occurred while updating the item: ${error.message}`);
+      });
+  };
+
+  // Handle editing an item
+  const handleEditList = (lists) => {
+    setEditingList(lists.id);
+    setUpdatedList({ 
+      name: lists.name
     });
   };
 
   // Handle input changes in the update form
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUpdatedItem(prevItem => ({
+    setUpdatedList(prevItem => ({
       ...prevItem,
       [name]: value
     }));
-  };
-
-  const handleBackToWishlistHome = () => {
-    navigate('/WishlistHome');
   };
 
   const handleBackToHome = () => {
@@ -121,74 +130,52 @@ const PersonalWishlist = () => {
     <div className="container">
       <h1>Your Personal Wishlist</h1>
       <button onClick={handleBackToHome} className="btn btn-primary">Back to Home Page</button>
-      <button onClick={handleBackToWishlistHome} className="btn btn-primary">Add an item</button>
       
-
-
-      {personalItems.length > 0 ? (
+      <div className="add-form">
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter List Name"
+          onChange={(e) => setUpdatedList({ name: e.target.value })}
+        />
+        <button onClick={() => handleAddList(updatedList)} className="btn btn-success">
+          Add Wishlist  
+        </button>
+      </div>
+      {personalLists.length > 0 ? (
         <ul>
-          {personalItems.map(item => (
-            <li key={item.id}>
-              {editingItem === item.id ? (
+          {personalLists.map(lists => (
+            <li key={lists.id}>
+              {editingList === lists.id ? (
                 <div className="edit-form">
                   <input
                     type="text"
                     name="name"
-                    value={updatedItem.name}
+                    value={updatedList.name}
                     onChange={handleInputChange}
-                    placeholder="Item Name"
+                    placeholder="List Name"
                   />
-                  <input
-                    type="text"
-                    name="description"
-                    value={updatedItem.description}
-                    onChange={handleInputChange}
-                    placeholder="Item Description"
-                  />
-                  <input
-                    type="number"
-                    name="price"
-                    value={updatedItem.price}
-                    onChange={handleInputChange}
-                    placeholder="Item Price"
-                  />
-                  <input
-                    type="text"
-                    name="url"
-                    value={updatedItem.url}
-                    onChange={handleInputChange}
-                    placeholder="Item URL"
-                  />
-                  <input
-                    type="text"
-                    name="imageURL"   // Ensure this matches what you're setting
-                    value={updatedItem.imageURL}
-                    onChange={handleInputChange}
-                    placeholder="Item Image URL"
-                  />
-                  <button onClick={() => handleUpdateItem(item.id)} className="btn btn-success">
-                    Update Item
+                  <button onClick={() => handleUpdateList(lists)} className="btn btn-success">
+                    Update Wishlist
                   </button>
                 </div>
               ) : (
                 <div className="item-details">
-                  <img 
-                    src={item.imageURL} 
-                    alt={item.name} 
-                    onError={(e) => e.target.src = 'https://via.placeholder.com/150'} 
-                  />
                   <div>
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
-                    <p>Price: ${item.price}</p>
-                    <a href={item.url} target="_blank" rel="noopener noreferrer">View Item</a>
+                    <h3>{lists.name}</h3>
                   </div>
                   <div className="item-actions">
-                    <button onClick={() => handleEditItem(item)} className="btn btn-info">
-                      Edit Item
+                  <button onClick={() => {
+                    localStorage.setItem('selectedList', JSON.stringify(lists.id));
+                    navigate('/wishlistHome');
+                  }} className="btn btn-secondary">
+                    View List
+                  </button>
+                    <button onClick={() => handleEditList(lists)} className="btn btn-info">
+                      Edit List  
                     </button>
-                    <button onClick={() => handleDeleteItem(item.id)} className="btn btn-danger">
-                      Delete Item
+                    <button onClick={() => handleDeleteWishlist(lists.id)} className="btn btn-danger">
+                      Delete List
                     </button>
                   </div>
                 </div>

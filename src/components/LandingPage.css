@@ -16,7 +16,10 @@
   padding-top: 70px;
   text-align: center;
 }
-
+.link{
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
 .mainContent{
     display: flex;
     text-align: center;
