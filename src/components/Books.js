@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Books.css';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import { set } from 'mongoose';
 
 const Books = () => {
+  const [selectedList, setSelectedList] = useState('');  // State to track selected wishlist
   const [personalLists, setPersonalLists] = useState([]);
   const [books, setBooks] = useState([]);          // For storing books fetched from API
   const [error, setError] = useState(null);        // For error handling
@@ -59,9 +59,7 @@ const Books = () => {
   }, []);
 
   // Function to handle adding an item to the wishlist
-  const handleAddToWishlist = (itemId) => {
-    const listId = "6715b7f1affdde31c6318630";  // Your personal wishlist ID (use the correct one)
-    
+  const handleAddToWishlist = (itemId,listId) => {
     fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists/${listId}/add-existing-item?itemId=${itemId}`, {
       method: 'POST',
     })
@@ -114,19 +112,28 @@ const Books = () => {
                   <p className="card-text">Price: ${book.price}</p>
                   <a href={book.url} target="_blank" rel="noopener noreferrer" className="btn btn-link">View Item</a>
                   <div className="button-group">
-                    {isLoggedIn && (<select className="form-select">
-                        <option value="">Select Wishlist</option>
-                        {personalLists.map(list => (
-                          <option key={list.id} value={list.id}>{list.name}</option>
-                        ))}
-                      </select>)}
                     {isLoggedIn && (
-                      <button 
-                        onClick={() => handleAddToWishlist(book.id)} 
-                        className="btn btn-success"
-                      >
-                        Add to Wishlist
-                      </button>
+                      <>
+                        <select 
+                          className="form-select" 
+                          onChange={(e) => setSelectedList(e.target.value)}
+                        >
+                          <option value="">Select Wishlist</option>
+                          {personalLists.map(list => (
+                            <option key={list.id} value={list.id}>{list.name}</option>
+                          ))}
+                        </select>
+                        <button 
+                          className="btn btn-primary mt-2" 
+                          onClick={() => {
+                            if (!selectedList) {
+                              return;
+                            }
+                            handleAddToWishlist(book.id,selectedList)
+                            }}>
+                          Add to Wishlist
+                        </button>
+                      </>
                     )}
                   </div>
                 </div>
