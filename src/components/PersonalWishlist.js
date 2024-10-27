@@ -51,7 +51,6 @@ const PersonalWishlist = () => {
   const handleAddList = (data) => {
     const rawUserId = localStorage.getItem('user');
     const userId = rawUserId ? JSON.parse(rawUserId) : null;
-    alert(`Adding list: ${userId}`);
     fetch(`https://wishlistapi-b5777d959cf8.herokuapp.com/items/lists?userId=${userId}&name=${data.name}&isPublic=true`, {
       method: 'POST',
       headers: {
@@ -66,7 +65,6 @@ const PersonalWishlist = () => {
       })
       .then(data => {
         setPersonalLists([...personalLists, data]);
-        alert('List added successfully!');
       })
       .catch(error => {
         console.error('Error adding list:', error);
@@ -127,10 +125,12 @@ const PersonalWishlist = () => {
     navigate('/Homepage');
   };
 
+
   return (
     <div className="container">
       <h1>Your Personal Wishlist</h1>
       <button onClick={handleBackToHome} className="btn btn-primary">Back to Home Page</button>
+      
       <div className="add-form">
         <input
           type="text"

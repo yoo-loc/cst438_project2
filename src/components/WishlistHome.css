@@ -48,6 +48,8 @@
 }
 .wishlist-home-container {
     padding: 20px;
+  background: linear-gradient(135deg, #f06, #4a90e2);
+
   }
   
   .wishlist-header {
@@ -139,6 +141,16 @@
   .btn-success {
     background-color: #28a745;
     color: white;
+  }
+
+  .wish-btn {
+    position: absolute;
+    display: flex;
+    padding: 10px;
+    left: 10%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
   }
   
   .btn-danger {

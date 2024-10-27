@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Gadgets.css'; // Import the CSS for styling
+import './giftcard.css'; // Import the CSS for styling
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const Giftcard = () => {
@@ -111,7 +111,7 @@ const Giftcard = () => {
               </div>
             ))
           ) : (
-            <p>No clothing items available.</p>
+            <p>No giftcard items available.</p>
           )}
         </div>
       )}
