@@ -15,7 +15,6 @@ import PersonalWishlist from './components/PersonalWishlist';  // Import Persona
 
 import { BrowserRouter as Router, Route, Link, Routes, Navigate } from "react-router-dom";  // Make sure to import Navigate
 import WishlistHome from './components/WishlistHome';
-import WishlistView from './components/WishlistView';
 
 const user = localStorage.getItem("user");  // Checking if user is stored in localStorage
 // ProtectedRoute component to protect routes
@@ -34,22 +33,24 @@ const App = () => {
         <nav className="navbar">
           <Link className="nav-link" to="/"><img src={logo_img_placeholder} alt="placehold"/></Link>
           {/* Wishlist link should take you to login if not already logged in. Should come back to when backend setup. */}
-          <Link className="nav-link" to="/HomePage">Your Wishlists</Link>
+          <Link className="nav-link" to="/HomePage">Home</Link>
           <Link className="nav-link" to="/GiftIdeas">Gift Ideas</Link>
           <Link className="nav-link" to="/Login">Log In</Link>
           <Link className="nav-link" to="/Signup">Sign up</Link>
-          <Link className="nav-link" to="/PersonalWishlist">Personal Wishlist</Link>
+          <Link className="nav-link" to="/PersonalWishlist">Personal Wishlists</Link>
         </nav>
         <Routes>
-          <Route path="/HomePage" element={<HomePage />} />
+          <Route path="/HomePage" element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>} />
           <Route path="/WishlistHome" element={
             <ProtectedRoute>
-              <WishlistView />
+              <WishlistHome />
             </ProtectedRoute>} />
           <Route path="/" element={<LandingPage />} />
 
           <Route path="/GiftIdeas" element={<GiftIdeas />} />
-          <Route path="/WishlistView" element={<WishlistView />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Signup" element={<Signup />} />
           <Route path="/books" element={<Books />} />
