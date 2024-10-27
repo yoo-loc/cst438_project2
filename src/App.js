@@ -5,6 +5,7 @@ import HomePage from "./home/Homepage";  // Correct path
 import AccountManager from "./components/AccountManager";
 import GiftIdeas from "./components/GiftIdeas";
 import csumbLogo from './images/csumb_logo.png'
+import giftImage from './images/gift3.png'
 import logo_img_placeholder from './images/logo_img_placeholder.png';
 import LandingPage from './components/LandingPage';
 import Clothing from './components/Clothing'; 
@@ -33,7 +34,7 @@ const App = () => {
     <Router>
       <div className="app-container">
         <nav className="navbar">
-          <Link className="nav-link" to="/"><img src={logo_img_placeholder} alt="placehold"/></Link>
+          <Link className="nav-link image" to="/"><img src={giftImage} alt=""/></Link>
           <Link className="nav-link" to="/Homepage">Home</Link>
           <Link className="nav-link" to="/GiftIdeas">Gift Ideas</Link>
           {isLoggedIn===null && <Link className="nav-link" to="/Login">Log In</Link>}
