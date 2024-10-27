@@ -26,8 +26,6 @@ const LandingPage = () => {
         <p>Here you can create a wishlist and share it with your friends and family. Like any wishlist should.</p>
         <p>Need some gift ideas? Check out our <Link to="/GiftIdeas" className="link">Gift Ideas</Link> page.</p>
         <p></p>
-        <p>To get started, create your account <Link to="/Signup" className="link" onClick={(e) => handleLinkClick(e)}>here</Link></p>
-        <p>Already a loyal customer? Login <Link to="/Login" className="link" onClick={(e) => handleLinkClick(e)}>here</Link>.</p>
 
         <button onClick={toLogin} className="getStartedbtn">Get Started</button>
       </div>

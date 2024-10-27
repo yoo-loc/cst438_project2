@@ -58,3 +58,8 @@ body {
 footer {
   text-align: center;
 }
+
+.image{
+  height: 40px;
+  width: 40px;
+}
