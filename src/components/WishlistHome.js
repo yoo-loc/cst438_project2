@@ -190,7 +190,7 @@ const WishlistHome = () => {
 
   return (
     <div className="wishlist-home-container">
-      <h1>Random Items that you can add to your wishlist</h1>
+      <h1>Add to your Wishlist</h1>
       <div className="wishlist-header">
         <button onClick={handleBackToHome} className="btn btn-primary">Back to Homepage</button>
       </div>
